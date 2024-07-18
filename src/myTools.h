@@ -15,6 +15,7 @@
 #include<string>
 #include<sstream>
 #include<cmath>
+#include<fstream>
 
 using namespace std;
 using namespace cv;
@@ -820,7 +821,7 @@ bool CircleFit(vector<double>x, vector<double>y, int N, vector<Point> stEdMid, d
 			float theta = atan2(dy, dx);
 			Point2f circleNormal = Point2f(cos(theta), sin(theta));
 			float cosPtCirNormal2 = (Nom[i].x * circleNormal.x + Nom[i].y * circleNormal.y);
-			if (abs(cosPtCirNormal2) >= cos(20.0 / 180 * CV_PI))// angle<=22.5¡ãremember float calculations
+			if (abs(cosPtCirNormal2) >= cos(20.0 / 180 * CV_PI))// angle<=22.5ï¿½ï¿½remember float calculations
 			{
 				inlierNum++;
 			}//endif
@@ -943,7 +944,7 @@ bool circleVerify(vector<double>x, vector<double>y, int N, vector<Point> stEdMid
 				Point2f circleNormal = Point2f(cos(theta), sin(theta));
 	
 				float cosPtCirNormal2 = (Nom[i].x * circleNormal.x + Nom[i].y * circleNormal.y);
-				if (abs(cosPtCirNormal2) >= cos(22.5 / 180 * CV_PI))// angle<=22.5¡ãremember float calculations
+				if (abs(cosPtCirNormal2) >= cos(22.5 / 180 * CV_PI))// angle<=22.5ï¿½ï¿½remember float calculations
 				{
 					inlierNum++;
 				}//endif
@@ -1333,7 +1334,7 @@ pre_rec_fmeasure Evaluate(const vector<Circles>& ellGT, const vector<Circles>& e
 
 	vector<Mat1b> gts(sz_gt);
 	vector<Mat1b> tests(sz_test);
-	//»æÖÆÃ¿¸öÄ¿±êÍÖÔ²
+	//ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½Ô²
 	for (unsigned i = 0; i < sz_gt; ++i)
 	{
 		const Circles& e = ellGT[i];
