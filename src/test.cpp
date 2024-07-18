@@ -70,19 +70,17 @@ int main(int argc, char* argv[])
     T test_threshold;
 
     vector<cv::String> Filenames;
-    cv::glob(input_path.string(), Filenames);
+    cv::glob(input_path.string() + "/*.bmp", Filenames); // Only select .bmp files
     float fmeasureSum = 0.0;
     float precisionSum = 0.0;
     float recallSum = 0.0;
     float timeSum = 0.0;
 
     for (const auto& file : Filenames) {
-        cv::String::size_type pos1, pos2;
-        pos1 = file.find("1");
-        pos2 = file.find(".");
-        cv::String prefix = file.substr(pos1 + 2, pos2 - pos1 - 2);
-        cv::String suffix = file.substr(pos2 + 1, pos2 + 3);
-        cv::String saveName = (output_path / (prefix + "_det." + suffix)).string();
+        fs::path filepath(file);
+        cv::String prefix = filepath.stem().string();
+        cv::String suffix = filepath.extension().string();
+        cv::String saveName = (output_path / (prefix + "_det" + suffix)).string();
 
         Mat testImgOrigin = imread(file, 1);
         Mat testImg = testImgOrigin.clone();
@@ -236,7 +234,6 @@ int main(int argc, char* argv[])
     float aveTime = timeSum / Filenames.size();
     float aveFmea = 2 * avePre * aveRec / (avePre + aveRec);
     cout << "Pre Rec Fmea Time: " << avePre << " " << aveRec << " " << aveFmea << " " << aveTime << endl;
-    // waitKey(0);
 
     return 0;
 }
